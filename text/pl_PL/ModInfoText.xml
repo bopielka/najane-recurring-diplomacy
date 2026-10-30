@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Non-English text uses <LocalizedText> with an explicit Language attribute.
+    <EnglishText> here would be inserted as en_US regardless of the folder name and
+    collide with text/en_us/ModInfoText.xml:
+        ERROR: Database: UNIQUE constraint failed: LocalizedText.ModRowId, Tag, Locale
+-->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_NAME" Language="pl_PL">
+            <Text>Recurring Diplomacy by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="pl_PL">
+            <Text>Utrzymuje wybrane umowy dyplomatyczne - otwarte granice, współpracę naukową, kontrwywiad i inne - proponując je ponownie, gdy wygasną. Tylko interfejs - zasady gry się nie zmieniają.</Text>
+        </Row>
+    </LocalizedText>
+</Database>

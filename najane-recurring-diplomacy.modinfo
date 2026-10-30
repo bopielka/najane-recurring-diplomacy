@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    version on <Mod> must be an integer >= 1: it is parsed as an int, and version="0.1" lands as 0,
+    which the game silently refuses to apply. The human-readable version is <Properties><Version>.
+-->
+<Mod id="najane-recurring-diplomacy" version="1"
+    xmlns="ModInfo">
+    <Properties>
+        <Name>LOC_MOD_NAJANE_RECURRING_NAME</Name>
+        <Version>0.1</Version>
+        <Description>LOC_MOD_NAJANE_RECURRING_DESCRIPTION</Description>
+        <Authors>Najane</Authors>
+        <Package>Mod</Package>
+        <AffectsSavedGames>0</AffectsSavedGames>
+        <ShowInBrowser>1</ShowInBrowser>
+    </Properties>
+    <Dependencies>
+        <Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME" />
+    </Dependencies>
+    <ActionCriteria>
+        <Criteria id="always">
+            <AlwaysMet></AlwaysMet>
+        </Criteria>
+    </ActionCriteria>
+    <ActionGroups>
+        <ActionGroup id="najane-recurring-game" scope="game" criteria="always">
+            <Properties>
+                <LoadOrder>1000</LoadOrder>
+            </Properties>
+            <Actions>
+                <UpdateText>
+                    <Item>text/en_us/InGameText.xml</Item>
+                    <Item locale="pl_PL">text/pl_PL/InGameText.xml</Item>
+                </UpdateText>
+                <!--
+                    The sync toggle's icon, served as fs://game/najane-recurring-diplomacy/icons/…,
+                    which only resolves for files registered here. A PNG because an SVG data: URI
+                    draws nothing in this engine; regenerate with tools/make-icons.py.
+                -->
+                <ImportFiles>
+                    <Item>icons/sync.png</Item>
+                </ImportFiles>
+                <UIScripts>
+                    <Item>ui/recurring-diplomacy.js</Item>
+                </UIScripts>
+            </Actions>
+        </ActionGroup>
+        <!--
+            No shell group yet. When the options module lands (ui/options/), it has to be
+            registered in a scope="shell" group as well, or its rows vanish from the main
+            menu's Options screen - see documentation/02-architecture.md.
+        -->
+    </ActionGroups>
+    <LocalizedText>
+        <File>text/en_us/ModInfoText.xml</File>
+        <File>text/pl_PL/ModInfoText.xml</File>
+    </LocalizedText>
+</Mod>

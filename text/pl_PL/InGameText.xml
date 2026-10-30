@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="pl_PL">
+            <Text>Najane Mods: cykliczna dyplomacja</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="pl_PL">
+            <Text>Odnawiaj: WŁ.[N]Proponowane ponownie temu przywódcy zawsze, gdy nie trwa. Kliknij, aby wyłączyć.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_OFF" Language="pl_PL">
+            <Text>Odnawiaj: WYŁ.[N]Kliknij, aby proponować to ponownie temu przywódcy zawsze, gdy nie trwa.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="pl_PL">
+            <Text>Już odnawiane z: {1_Leaders}.[N]Shift+klik przenosi odnawianie do tego przywódcy.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="pl_PL">
+            <Text>Cykliczna dyplomacja</Text>
+        </Row>
+    </LocalizedText>
+</Database>

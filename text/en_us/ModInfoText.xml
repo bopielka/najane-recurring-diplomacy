@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_NAME">
+            <Text>Recurring Diplomacy by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION">
+            <Text>Keeps the diplomatic agreements you choose - Open Borders, Research Collaboration, Counterspy and more - running by proposing them again when they expire. UI only - no game rules are changed.</Text>
+        </Row>
+    </EnglishText>
+</Database>

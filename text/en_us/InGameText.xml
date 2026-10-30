@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keys: LOC_NAJANE_RECURRING_*. Every key added here goes into text/pl_PL/ as well. -->
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP">
+            <Text>Najane Mods: recurring diplomacy</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON">
+            <Text>Keep renewing: ON[N]Proposed again with this leader whenever it is not running. Click to turn off.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_OFF">
+            <Text>Keep renewing: OFF[N]Click to propose this again with this leader whenever it is not running.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED">
+            <Text>Already kept running with {1_Leaders}.[N]Shift+click to move it to this leader.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE">
+            <Text>Recurring diplomacy</Text>
+        </Row>
+    </EnglishText>
+</Database>
