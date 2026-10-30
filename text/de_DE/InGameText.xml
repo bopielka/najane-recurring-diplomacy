@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="de_DE">
+            <Text>Najane Mods: wiederkehrende Diplomatie</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="de_DE">
+            <Text>Erneuern: AN[N]Wird diesem Anführer erneut vorgeschlagen, sobald es nicht läuft. Klicken zum Ausschalten.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_OFF" Language="de_DE">
+            <Text>Erneuern: AUS[N]Klicken, um dies diesem Anführer erneut vorzuschlagen, sobald es nicht läuft.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="de_DE">
+            <Text>Läuft bereits mit {1_Leaders}.[N]Umschalt+Klick verschiebt es zu diesem Anführer.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="de_DE">
+            <Text>Wiederkehrende Diplomatie</Text>
+        </Row>
+    </LocalizedText>
+</Database>

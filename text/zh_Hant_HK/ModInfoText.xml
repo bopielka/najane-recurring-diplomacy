@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_NAME" Language="zh_Hant_HK">
+            <Text>Recurring Diplomacy by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="zh_Hant_HK">
+            <Text>在你選擇的外交協定（開放邊界、研究合作、反間諜等）到期時再次提議，使其持續生效。只需在領袖外交介面中點擊行動旁的同步按鈕；每回合的簡短摘要會顯示誰同意了。僅介面修改 - 不改變任何遊戲規則。</Text>
+        </Row>
+    </LocalizedText>
+</Database>

@@ -11,7 +11,7 @@
             <Text>Recurring Diplomacy by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="pl_PL">
-            <Text>Utrzymuje wybrane umowy dyplomatyczne - otwarte granice, współpracę naukową, kontrwywiad i inne - proponując je ponownie, gdy wygasną. Tylko interfejs - zasady gry się nie zmieniają.</Text>
+            <Text>Utrzymuje wybrane umowy dyplomatyczne - otwarte granice, współpracę naukową, kontrwywiad i inne - proponując je ponownie, gdy wygasną. Wystarczy jedno kliknięcie przycisku obok akcji na ekranie dyplomacji przywódcy; krótkie podsumowanie na początku tury pokazuje, kto się zgodził. Tylko interfejs - zasady gry się nie zmieniają.</Text>
         </Row>
     </LocalizedText>
 </Database>

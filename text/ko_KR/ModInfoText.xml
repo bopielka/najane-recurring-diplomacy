@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_NAME" Language="ko_KR">
+            <Text>Recurring Diplomacy by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="ko_KR">
+            <Text>선택한 외교 협정(국경 개방, 연구 협력, 방첩 등)이 만료되면 다시 제안하여 계속 유지합니다. 지도자의 외교 화면에서 행동 옆의 동기화 버튼을 한 번 클릭하면 됩니다. 매 턴 짧은 요약으로 누가 동의했는지 보여줍니다. UI 전용 - 게임 규칙은 바뀌지 않습니다.</Text>
+        </Row>
+    </LocalizedText>
+</Database>

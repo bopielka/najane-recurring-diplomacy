@@ -14,7 +14,7 @@ Plain ES modules, **no build step, no bundler, no TypeScript, no tests** — the
 the file it is drawn from: `../better-commerce-screen-ui/ui/engine/diplomacy.js`, the working
 implementation of proposing a diplomatic action from script.
 
-**Status:** the sync toggle in the diplomacy action list records choices
+**Status: 1.0** (2026-10-30). The sync toggle in the diplomacy action list records choices
 (`ui/screen/sync-toggle.js`, `ui/engine/renewals.js`); `ui/engine/renewal-loop.js` proposes them
 again at `LocalPlayerTurnBegin`. `ui/screen/renewal-toast.js` reports them. Not yet: the Influence reserve, options. The icon PNG is generated: `python tools/make-icons.py` from `assets/sync.svg`.
 
@@ -74,7 +74,7 @@ Never import upwards — the renewal loop runs at turn start with no screen open
 ## Conventions
 
 ⚠️ **EVERYTHING WRITTEN TO A FILE IS IN ENGLISH**, whatever language the conversation is in. The
-only Polish that belongs in a file is Polish content in `text/pl_PL/`.
+only non-English text that belongs in a file is the translations in `text/<locale>/`.
 
 4-space indent, semicolons, single quotes, trailing commas. `camelCase` functions,
 `SCREAMING_SNAKE` module constants, `LOC_NAJANE_RECURRING_*` localisation keys, `najane-*` CSS
@@ -82,7 +82,7 @@ classes. Imports of game files are absolute (`/core/…`, `/base-standard/…`),
 relative. Every module opens with a block comment saying what it is for and why it lives in its
 layer. Keep the FACT in a `⚠️` comment, not the story.
 
-New localisation keys go into every `text/<locale>/InGameText.xml` (currently `en_us`, `pl_PL`).
+New localisation keys go into every `text/<locale>/InGameText.xml` (currently `en_us`, `de_DE`, `es_ES`, `fr_FR`, `it_IT`, `ja_JP`, `ko_KR`, `pl_PL`, `pt_BR`, `ru_RU` (Ukrainian - see the file), `zh_Hans_CN`, `zh_Hant_HK`).
 Non-English files use `<LocalizedText>` with `Language=`, never `<EnglishText>`.
 
 Options go into the shared Najane section via `ui/options/najane-mod-options-registry.js`, copied

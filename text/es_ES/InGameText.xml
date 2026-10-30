@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="es_ES">
+            <Text>Najane Mods: diplomacia recurrente</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="es_ES">
+            <Text>Renovar: SÍ[N]Se vuelve a proponer a este líder siempre que no esté activo. Haz clic para desactivarlo.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_OFF" Language="es_ES">
+            <Text>Renovar: NO[N]Haz clic para volver a proponerlo a este líder siempre que no esté activo.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="es_ES">
+            <Text>Ya se mantiene activo con {1_Leaders}.[N]Mayús+clic lo traslada a este líder.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="es_ES">
+            <Text>Diplomacia recurrente</Text>
+        </Row>
+    </LocalizedText>
+</Database>

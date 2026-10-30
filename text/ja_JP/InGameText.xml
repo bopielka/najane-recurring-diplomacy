@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="ja_JP">
+            <Text>Najane Mods: 外交の自動更新</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="ja_JP">
+            <Text>更新: オン[N]実行中でない時は、この指導者に再び提案します。クリックでオフ。</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_OFF" Language="ja_JP">
+            <Text>更新: オフ[N]クリックすると、実行中でない時にこの指導者へ再び提案します。</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="ja_JP">
+            <Text>すでに{1_Leaders}と継続中です。[N]Shift+クリックでこの指導者に移します。</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="ja_JP">
+            <Text>外交の自動更新</Text>
+        </Row>
+    </LocalizedText>
+</Database>

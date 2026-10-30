@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Keys: LOC_NAJANE_RECURRING_*. Every key added here goes into text/pl_PL/ as well. -->
+<!-- Keys: LOC_NAJANE_RECURRING_*. Every key added here goes into every other text/<locale>/ as well. -->
 <Database>
     <EnglishText>
         <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP">

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_NAME" Language="es_ES">
+            <Text>Recurring Diplomacy by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="es_ES">
+            <Text>Mantiene activos los acuerdos diplomáticos que elijas - fronteras abiertas, colaboración en investigación, contraespionaje y más - volviendo a proponerlos cuando expiran. Un clic en el botón de sincronización junto a una acción en la pantalla de diplomacia de un líder; un breve resumen en cada turno muestra quién aceptó. Solo interfaz - no se cambia ninguna regla del juego.</Text>
+        </Row>
+    </LocalizedText>
+</Database>

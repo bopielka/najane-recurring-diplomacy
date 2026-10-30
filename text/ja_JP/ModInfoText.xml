@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_NAME" Language="ja_JP">
+            <Text>Recurring Diplomacy by Najane</Text>
+        </Row>
+        <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="ja_JP">
+            <Text>選んだ外交協定 (国境開放、研究協力、防諜など) を期限切れ時に再提案し、継続させます。指導者の外交画面でアクション横の同期ボタンをクリックするだけ。毎ターンの短い概要で誰が同意したかが分かります。UIのみ - ゲームのルールは変更しません。</Text>
+        </Row>
+    </LocalizedText>
+</Database>

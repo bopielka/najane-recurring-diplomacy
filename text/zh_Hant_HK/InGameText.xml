@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="zh_Hant_HK">
+            <Text>Najane Mods：外交自動續約</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="zh_Hant_HK">
+            <Text>續約：開[N]未生效時會再次向該領袖提議。點擊關閉。</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_OFF" Language="zh_Hant_HK">
+            <Text>續約：關[N]點擊後，未生效時會再次向該領袖提議。</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="zh_Hant_HK">
+            <Text>已與{1_Leaders}保持續約。[N]Shift+點擊可將其轉移到該領袖。</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="zh_Hant_HK">
+            <Text>外交自動續約</Text>
+        </Row>
+    </LocalizedText>
+</Database>

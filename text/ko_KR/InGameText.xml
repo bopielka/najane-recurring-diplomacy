@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="ko_KR">
+            <Text>Najane Mods: 반복 외교</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="ko_KR">
+            <Text>갱신: 켜짐[N]진행 중이 아닐 때마다 이 지도자에게 다시 제안합니다. 클릭하여 끄기.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_OFF" Language="ko_KR">
+            <Text>갱신: 꺼짐[N]클릭하면 진행 중이 아닐 때마다 이 지도자에게 다시 제안합니다.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="ko_KR">
+            <Text>이미 {1_Leaders}와(과) 유지 중입니다.[N]Shift+클릭으로 이 지도자에게 옮깁니다.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="ko_KR">
+            <Text>반복 외교</Text>
+        </Row>
+    </LocalizedText>
+</Database>
