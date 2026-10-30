@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="ko_KR">
             <Text>영향력 대기 중: 충분해지는 즉시 시작합니다. 클릭하여 취소.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="ko_KR">
+            <Text>지금은 이 지도자와 할 수 없으므로 유지할 수 없습니다.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="ko_KR">
             <Text>반복 외교</Text>
         </Row>

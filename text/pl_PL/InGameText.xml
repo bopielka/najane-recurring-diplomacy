@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="pl_PL">
             <Text>Czeka na wpływy: ruszy, gdy tylko będzie ich dość. Kliknij, aby anulować.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="pl_PL">
+            <Text>Z tym przywódcą nie jest to teraz możliwe, więc nie da się tego odnawiać.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="pl_PL">
             <Text>Cykliczna dyplomacja</Text>
         </Row>

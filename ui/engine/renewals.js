@@ -36,13 +36,15 @@ const CATALOG_VERSION = 2;
 const OBJECT_ID = 'byAction';
 
 /**
- * Groups whose actions may be marked. Sanctions (hostile), city-state projects and the unique
- * group (war, alliance) are left to the player by hand; see documentation/03-diplomacy-api.md.
+ * Groups whose actions may be marked. Sanctions too (user's instruction, 2026-10-30: "if someone
+ * wants to keep sanctioning, let them") - the player switches each one on by hand. City-state
+ * projects and the unique group (war, alliance) are left to the player; see documentation/03.
  */
 const RENEWABLE_GROUPS = [
     'DIPLOMACY_ACTION_GROUP_TREATY',
     'DIPLOMACY_ACTION_GROUP_ENDEAVOR',
     'DIPLOMACY_ACTION_GROUP_ESPIONAGE',
+    'DIPLOMACY_ACTION_GROUP_SANCTION',
 ];
 
 let renewableGroupValues = null;
@@ -85,9 +87,9 @@ export function isRenewable(projectData) {
 
 /**
  * Whether the hourglass may be offered: anything with a single target and no second one to pick,
- * except what is hostile (sanctions, war) - rule 1, never propose anything hostile.
+ * except the unique group (war, alliance). Sanctions are allowed (user's instruction, 2026-10-30).
  */
-const NEVER_WAITED_GROUPS = ['DIPLOMACY_ACTION_GROUP_SANCTION', 'DIPLOMACY_ACTION_GROUP_UNIQUE'];
+const NEVER_WAITED_GROUPS = ['DIPLOMACY_ACTION_GROUP_UNIQUE'];
 
 /** Action names whose project asks for a second target ("Target" button), read once. */
 let secondTargetActions = null;
@@ -117,6 +119,25 @@ export function isWaitable(projectData) {
         return !NEVER_WAITED_GROUPS.some((name) => DiplomacyActionGroups[name] === projectData.actionGroup);
     } catch (error) {
         warn(`could not tell whether ${projectData?.actionTypeName} can wait: ${error}`);
+        return false;
+    }
+}
+
+/**
+ * Whether the local player has this action running, with `leaderId` or (null) with anyone.
+ * ⚠️ NOT `projectStatus`: a running befriending reads -3 like an unaffordable one, with "already
+ * started" as its reason (seen in game 2026-10-30). The game's panel asks `getPlayerEvents` too
+ * (`trySupportBefriendIndependent`).
+ */
+export function isRunning(actionType, leaderId) {
+    try {
+        const local = GameContext.localPlayerID;
+        const events = Game.Diplomacy.getPlayerEvents(leaderId ?? local) ?? [];
+        return events.some((event) => event.actionType === actionType
+            && (event.initialPlayer === local || event.targetPlayer === local)
+            && (leaderId === null || event.initialPlayer === leaderId || event.targetPlayer === leaderId));
+    } catch (error) {
+        warn(`could not tell whether action ${actionType} is running: ${error}`);
         return false;
     }
 }
@@ -294,6 +315,13 @@ export function wouldReplace(leaderId, projectData) {
     return excess > 0 ? others.slice(0, excess) : [];
 }
 
+/**
+ * ⚠️ RENEWAL AND WAITING EXCLUDE EACH OTHER (user's instruction, 2026-10-30): switching one on for a
+ * pair drops the other - a renewal starts the action as soon as it can anyway, and a wait is the
+ * "just once" choice. Screens redraw the other control on `RowMarksChangedEventName`.
+ */
+export const RowMarksChangedEventName = 'najane-recurring-row-marks-changed';
+
 /** @returns the state now in force, so a caller that could not save shows the truth. */
 export function setRenewal(leaderId, projectData, on) {
     const name = projectData.actionTypeName;
@@ -301,6 +329,9 @@ export function setRenewal(leaderId, projectData, on) {
     const leaders = listFor(RENEWALS, name).filter((id) => id !== leaderId && !dropped.includes(id));
     if (on) {
         leaders.push(leaderId);
+        if (isWaitingOn(leaderId, name)) {
+            writeList(WAITING, name, listFor(WAITING, name).filter((id) => id !== leaderId));
+        }
     }
     writeList(RENEWALS, name, leaders);
     return isRenewalOn(leaderId, name);
@@ -320,6 +351,9 @@ export function setWaiting(leaderId, actionTypeName, on) {
     const leaders = listFor(WAITING, actionTypeName).filter((id) => id !== leaderId);
     if (on) {
         leaders.push(leaderId);
+        if (isRenewalOn(leaderId, actionTypeName)) {
+            writeList(RENEWALS, actionTypeName, listFor(RENEWALS, actionTypeName).filter((id) => id !== leaderId));
+        }
     }
     writeList(WAITING, actionTypeName, leaders);
     return isWaitingOn(leaderId, actionTypeName);

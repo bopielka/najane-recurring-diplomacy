@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="de_DE">
             <Text>Wartet auf Einfluss: startet, sobald genug vorhanden ist. Klicken zum Abbrechen.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="de_DE">
+            <Text>Mit diesem Anführer derzeit nicht möglich, daher kann es nicht erneuert werden.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="de_DE">
             <Text>Wiederkehrende Diplomatie</Text>
         </Row>

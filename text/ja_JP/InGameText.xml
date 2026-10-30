@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="ja_JP">
             <Text>影響力待ち: 足りた時点で開始します。クリックで取り消し。</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="ja_JP">
+            <Text>今はこの指導者と実行できないため、継続できません。</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="ja_JP">
             <Text>外交の自動更新</Text>
         </Row>

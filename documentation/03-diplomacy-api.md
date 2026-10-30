@@ -125,8 +125,9 @@ The whole **espionage group** is markable too, the one-shot ones included (`STEA
 21 turns, `STEAL_CIVIC` 21, `MILITARY_SABOTAGE` 25): the player asked for espionage to be
 repeatable, and a toggle that is off by default proposes nothing on its own.
 
-Deliberately **out of scope**: sanctions (`DENOUNCE`, `SABOTAGE_*`) — hostile acts the player
-should start by hand; city-state projects; war and alliance; anything with `BaseDuration` 0 or −1.
+Deliberately **out of scope**: city-state projects; war and alliance; anything with
+`BaseDuration` 0 or −1. Sanctions (`DENOUNCE`, `SABOTAGE_*`) were out of scope until 1.2 and are
+now renewable like the rest (user's instruction, 2026-10-30).
 
 ⚠️ Not a hardcoded whitelist: `ui/engine/renewals.js` (`isRenewable`) decides by **group**
 (TREATY, ENDEAVOR, ESPIONAGE), target shape and `Game.Diplomacy.getBaseDiplomaticActionDuration`,

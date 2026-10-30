@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON">
             <Text>Waiting for Influence: starts as soon as you have enough. Click to cancel.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE">
+            <Text>Not possible with this leader right now, so it cannot be kept running.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE">
             <Text>Recurring diplomacy</Text>
         </Row>

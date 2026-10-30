@@ -10,13 +10,15 @@
  * `fxs-chooser-item`: each chip stops `engine-input` at START and FINISH, or one press on it also
  * starts the row. The game's own price is hidden, not removed.
  *
- * ⚠️ Sanctions and war never get the hourglass (rule 1: nothing hostile is proposed by the mod).
+ * ⚠️ War and alliance never get the hourglass; sanctions do (user's instruction, 2026-10-30).
  */
-import { isWaitable, isWaitingOn, setWaiting } from '../engine/renewals.js';
+import { instanceLimit, isRunning, isWaitable, isWaitingOn, RowMarksChangedEventName, setWaiting } from '../engine/renewals.js';
 import { warn } from '../support/diagnostics.js';
 
 /** The game's own class on the row's Influence cost (panel-diplomacy-actions.js). */
 export const COST_CLASS = 'panel-diplomacy-actions__influence-container';
+/** The chips' row; the sync toggle joins it as the first chip. */
+export const CHIPS_CLASS = 'najane-recurring-chips';
 
 const STYLE_ID = 'najane-recurring-chips-style';
 const HIDDEN_CLASS = 'najane-recurring-hidden';
@@ -57,7 +59,8 @@ const STYLE = `
     min-width: 3.3333333333rem;
     min-height: 1.7777777778rem;
     padding: 0 0.3333333333rem;
-    margin-left: 0.4444444444rem;
+    /* One gap for all three chips (user, 2026-10-30); Better City UI has 0.4444rem here. */
+    margin-left: 0.2222222222rem;
     border-radius: 0.5555555556rem 0.1111111111rem;
     border-style: solid;
     border-width: 0.1111111111rem;
@@ -98,7 +101,7 @@ const STYLE = `
     border-radius: 0.5555555556rem 0.1111111111rem;
     border-style: solid;
     border-width: 0.1111111111rem;
-    border-color: #6b5f4a;
+    border-color: #8c7e62; /* the live price chip's border: always clickable, so never drawn like the greyed price */
     background-color: rgba(0, 0, 0, 0.28);
     color: #c7b28a;
     pointer-events: auto;
@@ -184,6 +187,45 @@ function playClick() {
     }
 }
 
+/**
+ * What holds this row back: 'none' (it can start), 'running' (we already run it - with this player,
+ * or anywhere for a one-at-a-time action, never for one the game allows many of), 'influence' (the price is the ONLY obstacle), 'other'.
+ *
+ * ⚠️ THE GAME LISTS ONLY THE FIRST OBSTACLE (seen 2026-10-30: Reconciliation at 10 Influence for a
+ * price of 60 gave only its relationship requirement). So the reasons cannot be counted: 'influence'
+ * means every reason IS the game's own "not enough Influence" line, composed here from its own key
+ * with the same numbers. ⚠️ The one place a reason is compared (rule 3): against the game's key,
+ * never a hard-coded string; on any mismatch the row reads 'other', i.e. the safe side.
+ */
+const NOT_ENOUGH_INFLUENCE_KEY = 'LOC_DIPLOMACY_ACTION_NOT_ENOUGH_YIELD_DIPLOMACY';
+
+function isInfluenceReason(reason, cost, balance) {
+    try {
+        return [balance, Math.floor(balance)].some((shown) => Locale.compose(NOT_ENOUGH_INFLUENCE_KEY, cost, shown) === reason);
+    } catch (error) {
+        warn(`could not compose the Influence failure reason: ${error}`);
+        return false;
+    }
+}
+
+export function obstacleOf(panel, projectData, leaderId) {
+    if (projectData.projectStatus === DiplomacyProjectStatus.PROJECT_AVAILABLE) {
+        return 'none';
+    }
+    // ⚠️ "Running with anyone" only blocks a ONE-AT-A-TIME action: befriending one independent power
+    // does not stop befriending another (SingleInstanceProject="false"; seen in game 2026-10-30).
+    const oneAtATime = instanceLimit(projectData) !== Infinity;
+    if (isRunning(projectData.actionType, leaderId) || (oneAtATime && isRunning(projectData.actionType, null))) {
+        return 'running';
+    }
+    const cost = costOf(panel, projectData);
+    const balance = influenceBalance();
+    const reasons = projectData.resultData?.FailureReasons ?? [];
+    const onlyInfluence = cost > balance && reasons.length > 0
+        && reasons.every((reason) => isInfluenceReason(reason, cost, balance));
+    return onlyInfluence ? 'influence' : 'other';
+}
+
 function renderWait(wait, on) {
     wait.classList.toggle('najane-recurring-wait-on', on);
     wait.setAttribute('data-tooltip-content',
@@ -197,7 +239,12 @@ function renderWait(wait, on) {
 export function decorateChips(panel, item, projectData, leaderId) {
     const costContainer = item.querySelector(`.${COST_CLASS}`);
     const cost = costOf(panel, projectData);
-    if (!costContainer || !(cost > 0)) {
+    if (!costContainer) {
+        return;
+    }
+    // ⚠️ A free action (cost 0, e.g. Send Aid) shows no price at all (user's instruction, 2026-10-30).
+    if (!(cost > 0)) {
+        costContainer.style.display = 'none';
         return;
     }
     ensureStyle();
@@ -213,6 +260,12 @@ export function decorateChips(panel, item, projectData, leaderId) {
     const price = document.createElement('div');
     price.textContent = String(cost);
     buy.append(price, iconElement(INFLUENCE_ICON_URL));
+    // The game's "why not" line, hidden under the name (sync-toggle.js), lives in this tooltip
+    // instead (user's instruction, 2026-10-30).
+    const reasons = projectData.resultData?.FailureReasons ?? [];
+    if (!available && reasons.length > 0) {
+        buy.setAttribute('data-tooltip-content', reasons.join('[N]'));
+    }
     onPress(buy, () => {
         if (!available) {
             return;
@@ -226,25 +279,33 @@ export function decorateChips(panel, item, projectData, leaderId) {
     chips.appendChild(buy);
 
     const name = projectData.actionTypeName;
-    const waiting = isWaitingOn(leaderId, name);
-    // ⚠️ ONLY WHILE THE INFLUENCE IS SHORT, as in Better City UI - or while already marked, so a
-    // mark stays visible (and removable) once the treasury has caught up. Never on an action we
-    // already have running (user's instruction, 2026-10-30): `PROJECT_ACTIVE`.
-    const running = projectData.projectStatus === DiplomacyProjectStatus.PROJECT_ACTIVE;
-    // ⚠️ TEMPORARY PROBE: every priced row and the values the hourglass turns on. Remove once the
-    // running / short-of-Influence cases are confirmed in game.
-    warn(`chips: ${name} for player ${leaderId}: status ${projectData.projectStatus} (active ${DiplomacyProjectStatus.PROJECT_ACTIVE}, `
-        + `blocked ${DiplomacyProjectStatus.PROJECT_BLOCKED}), cost ${cost}, balance ${influenceBalance()}, `
-        + `waitable ${isWaitable(projectData)}, waiting ${waiting}, reasons ${(projectData.resultData?.FailureReasons ?? []).join(' | ')}`);
-    if (!running && isWaitable(projectData) && (cost > influenceBalance() || waiting)) {
+    let waiting = isWaitingOn(leaderId, name);
+    /*
+     * ⚠️ ONLY WHILE INFLUENCE IS THE ONE OBSTACLE (user's instructions, 2026-10-30): not on what we
+     * already run, not on a row also held back by something else (relationship level, units
+     * nearby) - waiting would not make it possible. A mark already made stays visible (and
+     * removable) once the treasury has caught up.
+     */
+    const obstacle = obstacleOf(panel, projectData, leaderId);
+    // ⚠️ TEMPORARY PROBE: every priced row and what the chips decided. Remove once confirmed in game.
+    warn(`chips: ${name} for player ${leaderId}: status ${projectData.projectStatus}, cost ${cost}, `
+        + `balance ${influenceBalance()}, obstacle ${obstacle}, waitable ${isWaitable(projectData)}, waiting ${waiting}, `
+        + `reasons ${(projectData.resultData?.FailureReasons ?? []).join(' | ')}`);
+    // ⚠️ A mark on a row the game no longer allows for another reason is dropped, not shown.
+    if (obstacle === 'other' && waiting) {
+        waiting = setWaiting(leaderId, name, false);
+    }
+    if (isWaitable(projectData) && (obstacle === 'influence' || (waiting && obstacle === 'none'))) {
         const wait = document.createElement('div');
         wait.className = 'najane-recurring-wait';
         wait.appendChild(iconElement(HOURGLASS_URL));
         renderWait(wait, waiting);
         onPress(wait, () => {
             renderWait(wait, setWaiting(leaderId, name, !wait.classList.contains('najane-recurring-wait-on')));
+            item.dispatchEvent(new CustomEvent(RowMarksChangedEventName));
             playClick();
         });
+        item.addEventListener(RowMarksChangedEventName, () => renderWait(wait, isWaitingOn(leaderId, name)));
         chips.appendChild(wait);
     }
 

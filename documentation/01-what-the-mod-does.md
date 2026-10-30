@@ -5,7 +5,7 @@ implements it.
 
 ## ✅ The sync toggle (`ui/screen/sync-toggle.js`, `ui/engine/renewals.js`)
 
-Every renewable row in the diplomacy screen's action list (Treaties, Endeavours, Espionage) gets a
+Every renewable row in the diplomacy screen's action list (Treaties, Endeavours, Espionage, Sanctions) gets a
 small square button with the sync icon, just left of the Influence cost. **Lit gold frame = on**
 (keep renewing this agreement with this leader), **grey frame = off**. Clicking it flips the state
 without starting the action through the row; turning it ON then proposes the agreement at once
@@ -35,11 +35,16 @@ shows it as a chip, greyed while the action cannot be started (a click on a live
 like the row). While the price is above the player's Influence - or while already marked - an
 **hourglass** chip sits beside it: "start this ONCE as soon as there is enough". Stored in the save
 (object `waiting`); the renewal loop starts it at the first turn start the game allows and drops
-the mark. It never renews: that is the sync toggle's job. Sanctions and war never get it.
+the mark. It never renews: that is the sync toggle's job. The two exclude each other for a
+(leader, action) pair: switching one on drops the other (`setRenewal` / `setWaiting`). War and alliance never get it.
 Anything aimed at an independent power shows blue in the summary, like espionage, and its row in
-the summary carries the action's icon. ❓ Not yet seen in game.
+the summary carries the action's icon. The sync toggle wears the hourglass chip's box and sits first in the
+chips' row, all three at one gap (1.2). What holds a row back is classified once (`obstacleOf`): 'running' is
+asked of `getPlayerEvents`, never read from `projectStatus` (a running befriending reads -3, like an
+unaffordable one); 'influence' = short of Influence with exactly ONE failure reason; anything else
+is 'other', which hides the hourglass and locks an OFF sync toggle (Shift+click included). ❓ Not yet seen in game.
 
-Rows that get no toggle: sanctions, city-state projects, war and alliance, zero-turn actions
+Rows that get no toggle: city-state projects, war and alliance, zero-turn actions
 (Improve Trade Relations, Send Gold), actions that ask for a second target, the "renew a recently
 completed project" rows, and anything on the local player's own screen or an independent's.
 
@@ -79,7 +84,8 @@ the player already made once.
 - Change rules, costs, durations or AI behaviour. `AffectsSavedGames = 0` - honest about the
   rules, but the toggles ARE written into the save as player properties. ❓ Not yet tested: a save
   loaded without the mod should simply carry them unread.
-- Propose anything hostile (sanctions, sabotage, war) or anything the player did not enable.
+- Propose war, or anything the player did not enable. Sanctions are proposed only once the
+  player has switched them on.
 - Spend Influence below the reserve.
 - Act during another player's turn, or on behalf of any player but the local one.
 

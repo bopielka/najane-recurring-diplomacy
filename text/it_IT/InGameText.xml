@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="it_IT">
             <Text>In attesa di influenza: si avvia appena ne avrai abbastanza. Clicca per annullare.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="it_IT">
+            <Text>Al momento non è possibile con questo leader, quindi non può essere mantenuto attivo.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="it_IT">
             <Text>Diplomazia ricorrente</Text>
         </Row>

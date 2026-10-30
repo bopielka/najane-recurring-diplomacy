@@ -6,11 +6,26 @@ Keep every entry short and non-technical: what actually changes for the player i
 No file, class or engine names, no engine reasoning - that belongs in a code comment.
 
 [hr][/hr]
+[h2]1.2[/h2]
+[list]
+[*][b]The sync button and the hourglass are now either-or.[/b] Switching on one switches the other off: the sync button already starts the action as soon as it can, and the hourglass is the "just once" choice.
+[*][b]New: sanctions can be kept running too[/b] - the sync button and the hourglass now also appear on sanctions such as Denounce or hampering a rival's research. Nothing changes until you switch one on.
+[*][b]The sync button now matches the price and the hourglass:[/b] same size, same frame, evenly spaced, so the three read as one row of buttons. Switched on, it still glows and turns.
+[*][b]Fixed: the hourglass no longer appears on an action that is held back by something other than Influence[/b] (for example a relationship it requires) - waiting for Influence would not make it possible.
+[*][b]The sync button is locked on an action you cannot take with that leader right now[/b] (a relationship it requires, units that must be nearby...). An agreement that is already running can still be switched on, and a button already on can always be switched off.
+[*][b]Fixed: the hourglass no longer shows on an action you already have running[/b], such as befriending an independent power you are already befriending - and it no longer disappears from one independent power because you are befriending another.
+[*][b]The sync icon now turns the way its arrows point.[/b]
+[*][b]Tidier action list:[/b] the red "why not" line under each action moved into the price's tooltip, and a free action no longer shows a price of 0.
+[*][b]Action rows are no longer greyed out[/b] - only the price chip is greyed when you cannot start the action, and the sync button and hourglass always look clickable.
+[*][b]Fixed: the hourglass appeared on actions you cannot take for another reason[/b] even when you were also short of Influence (the game only names the first problem). It now shows only when Influence is the one thing missing, and a mark left on such an action is removed.
+[/list]
+
+[hr][/hr]
 [h2]1.1[/h2]
 [list]
 [*][b]New: start an action as soon as you can afford it.[/b] When you are short of Influence, an hourglass appears beside the price. Click it and the action starts at the beginning of the first turn you can pay for it - once. To keep it running after that, use the sync button as before.
 [*][b]Works on independent powers too[/b], so you can queue befriending an independent power the moment you have the Influence for it.
-[*][b]The hourglass only shows where it makes sense:[/b] not on an action you already have running, not on actions where you still have to pick a target, and never on sanctions or war.
+[*][b]The hourglass only shows where it makes sense:[/b] not on an action you already have running, not on actions where you still have to pick a target, and never on war.
 [*][b]Influence prices are now chips[/b], in the same style as Better City UI: gold when you can start the action, greyed when you cannot. Clicking a gold price starts the action, like clicking its row.
 [*][b]The turn summary also lists independent powers[/b], by name and with the action's icon. What you started there is shown in blue, like espionage, since nobody has to agree to it.
 [/list]

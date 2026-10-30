@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="zh_Hant_HK">
             <Text>等待影響力：一旦足夠就開始。點擊取消。</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="zh_Hant_HK">
+            <Text>目前無法與該領袖進行，因此不能保持續約。</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="zh_Hant_HK">
             <Text>外交自動續約</Text>
         </Row>

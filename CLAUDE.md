@@ -52,11 +52,14 @@ Never import upwards — the renewal loop runs at turn start with no screen open
 
 ## Rules that are easy to break
 
-1. **Never propose anything the player did not enable**, never anything hostile, never below the
-   Influence reserve. The mod acts in the player's name; a surprise proposal is a bug.
+1. **Never propose anything the player did not enable**, never war, never below the Influence
+   reserve. The mod acts in the player's name; a surprise proposal is a bug. Sanctions ARE allowed
+   once the player switches them on (user's instruction, 2026-10-30).
 2. **Track `proposedThisTurn`.** `sendRequest` queues, and `canStart` keeps saying "yes" for a
    frame or two after it. See 03.
-3. **Never match on `FailureReasons` text** — it is composed and translated.
+3. **Never match on `FailureReasons` text** — it is composed and translated. The one exception
+   (`isInfluenceReason`, `ui/screen/influence-chips.js`) compares against the game's own key
+   composed with the same numbers, and fails safe. ⚠️ The game lists only the FIRST obstacle.
 4. **`canStart` is expensive.** Only ask about enabled, inactive, not-yet-proposed pairs.
 5. **Engine events fire for every player.** Filter to the local player; one `engine.on` per event
    name through a dispatcher.

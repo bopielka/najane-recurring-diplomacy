@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="zh_Hans_CN">
             <Text>等待影响力：一旦足够就开始。点击取消。</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="zh_Hans_CN">
+            <Text>目前无法与该领袖进行，因此不能保持续约。</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="zh_Hans_CN">
             <Text>外交自动续约</Text>
         </Row>

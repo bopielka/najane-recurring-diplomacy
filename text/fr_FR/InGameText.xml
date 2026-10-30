@@ -20,6 +20,9 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="fr_FR">
             <Text>En attente d'influence : lancé dès que vous en aurez assez. Cliquez pour annuler.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_UNAVAILABLE" Language="fr_FR">
+            <Text>Impossible avec ce dirigeant pour le moment, donc impossible à maintenir.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="fr_FR">
             <Text>Diplomatie récurrente</Text>
         </Row>
