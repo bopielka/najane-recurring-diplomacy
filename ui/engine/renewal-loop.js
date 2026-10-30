@@ -18,12 +18,12 @@
  * Only this module subscribes to these two events, so it calls `engine.on` directly; move to a
  * dispatcher (as in Better Commerce's engine/events.js) when a second module needs them.
  */
-import { markedRenewals } from './renewals.js';
+import { markedRenewals, markedWaits, setWaiting } from './renewals.js';
 import { warn } from '../support/diagnostics.js';
 
 /**
  * Announced on `window` for screen/renewal-toast.js; detail `{ name, leaderId, answer }`, answer
- * 'pending', 'started' (espionage), 'accepted' or 'rejected'. Answered: the leader's reply to an earlier proposal.
+ * 'pending', 'started' (espionage, independent powers), 'accepted' or 'rejected'. Answered: the leader's reply to an earlier proposal.
  */
 export const RenewalProposedEventName = 'najane-recurring-renewal-proposed';
 export const RenewalAnsweredEventName = 'najane-recurring-renewal-answered';
@@ -50,13 +50,17 @@ function projectFor(leaderId, actionType) {
     return projects.find((entry) => entry.actionType === actionType) ?? null;
 }
 
-function renew(name, leaderId) {
+/**
+ * Proposes one marked pair if the game allows it now. `once`: a waiting (hourglass) mark, which may
+ * also aim at an independent power and is dropped once proposed.
+ */
+function renew(name, leaderId, once) {
     const key = `${name}:${leaderId}`;
     if (proposedThisTurn.has(key)) {
         return;
     }
     const leader = Players.get(leaderId);
-    if (!leader?.isAlive || !leader.isMajor) {
+    if (!leader?.isAlive || !(leader.isMajor || (once && (leader.isIndependent || leader.isMinor)))) {
         return;
     }
     const actionType = DiplomacyActionTypes[name];
@@ -85,8 +89,11 @@ function renew(name, leaderId) {
     Game.PlayerOperations.sendRequest(GameContext.localPlayerID, project.operationType, args);
     proposedThisTurn.add(key);
     warn(`renewal: proposed ${name} to player ${leaderId}`);
-    // ⚠️ Espionage is not a proposal: nobody answers it, it simply starts.
-    const answered = project.actionGroup === DiplomacyActionGroups.DIPLOMACY_ACTION_GROUP_ESPIONAGE;
+    if (once) {
+        setWaiting(leaderId, name, false);
+    }
+    // ⚠️ Espionage, and anything aimed at an independent power, is not a proposal: nobody answers it.
+    const answered = !leader.isMajor || project.actionGroup === DiplomacyActionGroups.DIPLOMACY_ACTION_GROUP_ESPIONAGE;
     if (!answered) {
         awaitingAnswer.set(answerKey(project.actionType, leaderId), name);
     }
@@ -118,13 +125,16 @@ function onResponse(data) {
     }));
 }
 
+/** ⚠️ Waits first: a pair both waiting and renewed is then proposed once, and its wait dropped. */
 export function runRenewals() {
-    for (const [name, leaders] of markedRenewals()) {
-        for (const leaderId of leaders) {
-            try {
-                renew(name, leaderId);
-            } catch (error) {
-                warn(`renewal of ${name} with player ${leaderId} failed: ${error}`);
+    for (const [lists, once] of [[markedWaits(), true], [markedRenewals(), false]]) {
+        for (const [name, leaders] of lists) {
+            for (const leaderId of leaders) {
+                try {
+                    renew(name, leaderId, once);
+                } catch (error) {
+                    warn(`renewal of ${name} with player ${leaderId} failed: ${error}`);
+                }
             }
         }
     }

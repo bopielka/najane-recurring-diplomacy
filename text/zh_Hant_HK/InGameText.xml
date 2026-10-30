@@ -14,6 +14,12 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="zh_Hant_HK">
             <Text>已與{1_Leaders}保持續約。[N]Shift+點擊可將其轉移到該領袖。</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_OFF" Language="zh_Hant_HK">
+            <Text>影響力不足。[N]點擊後，一旦影響力足夠就開始。</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="zh_Hant_HK">
+            <Text>等待影響力：一旦足夠就開始。點擊取消。</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="zh_Hant_HK">
             <Text>外交自動續約</Text>
         </Row>

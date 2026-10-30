@@ -7,7 +7,7 @@
     xmlns="ModInfo">
     <Properties>
         <Name>LOC_MOD_NAJANE_RECURRING_NAME</Name>
-        <Version>1.0</Version>
+        <Version>1.1</Version>
         <Description>LOC_MOD_NAJANE_RECURRING_DESCRIPTION</Description>
         <Authors>Najane</Authors>
         <Package>Mod</Package>

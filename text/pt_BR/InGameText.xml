@@ -14,6 +14,12 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="pt_BR">
             <Text>Já mantido ativo com {1_Leaders}.[N]Shift+clique transfere para este líder.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_OFF" Language="pt_BR">
+            <Text>Influência insuficiente.[N]Clique para iniciar assim que tiver o suficiente.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="pt_BR">
+            <Text>Aguardando influência: começa assim que tiver o suficiente. Clique para cancelar.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="pt_BR">
             <Text>Diplomacia recorrente</Text>
         </Row>

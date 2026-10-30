@@ -29,12 +29,15 @@
  * blocked and a plain click does nothing; its tooltip names those leaders. SHIFT+click moves it
  * here, dropping the leader it was switched on with longest ago (read from `mouseup`; see below).
  *
+ * The same wrap also gives the row its Influence and hourglass chips (screen/influence-chips.js).
+ *
  * ⚠️ The ON animations touch only `opacity` (the `::after` glow) and `transform` (the icon's slow
  * turn): compositor properties, so the rows are not re-laid-out every frame while the screen is open.
  */
 import { DiplomacyActionPanel } from '/base-standard/ui/diplomacy-actions/panel-diplomacy-actions.js';
 import DiplomacyManager from '/base-standard/ui/diplomacy/diplomacy-manager.js';
 import { isRenewable, isRenewalOn, setRenewal, wouldReplace } from '../engine/renewals.js';
+import { COST_CLASS, decorateChips } from './influence-chips.js';
 import { warn } from '../support/diagnostics.js';
 
 const ICON_URL = 'fs://game/najane-recurring-diplomacy/icons/sync.png';
@@ -42,8 +45,6 @@ const STYLE_ID = 'najane-recurring-style';
 const TOGGLE_CLASS = 'najane-recurring-toggle';
 const ON_CLASS = 'najane-recurring-toggle--on';
 const BLOCKED_CLASS = 'najane-recurring-toggle--blocked';
-// The game's own class on the row's Influence cost (panel-diplomacy-actions.js).
-const COST_CLASS = 'panel-diplomacy-actions__influence-container';
 
 const ACTIVATING_INPUTS = new Set(['mousebutton-left', 'accept', 'touch-tap', 'keyboard-enter', 'touch-touch']);
 
@@ -116,6 +117,7 @@ const STYLE = `
     opacity: 1;
     animation: najane-recurring-spin 6s linear infinite;
 }
+
 @keyframes najane-recurring-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -224,12 +226,13 @@ function createToggle(panel, leaderId, projectData) {
     return toggle;
 }
 
-function selectedLeader() {
-    const leaderId = DiplomacyManager.selectedPlayerID;
-    if (leaderId === undefined || leaderId === PlayerIds.NO_PLAYER || leaderId === GameContext.localPlayerID) {
+/** The player whose action list this is, other than the local one; null for none. */
+function selectedPlayer() {
+    const playerId = DiplomacyManager.selectedPlayerID;
+    if (playerId === undefined || playerId === PlayerIds.NO_PLAYER || playerId === GameContext.localPlayerID) {
         return null;
     }
-    return Players.get(leaderId)?.isMajor ? leaderId : null;
+    return Players.get(playerId) ?? null;
 }
 
 /**
@@ -237,11 +240,17 @@ function selectedLeader() {
  * target is not the selected leader; they get no toggle until the renewal loop can honour them.
  */
 function decorate(panel, item, projectData, recentlyCompletedData) {
-    if (recentlyCompletedData || !item || !isRenewable(projectData)) {
+    if (recentlyCompletedData || !item) {
         return;
     }
-    const leaderId = selectedLeader();
-    if (leaderId === null) {
+    const player = selectedPlayer();
+    if (!player) {
+        return;
+    }
+    const leaderId = DiplomacyManager.selectedPlayerID;
+    // Majors and independent powers alike get the chips; only a major's renewable rows the toggle.
+    decorateChips(panel, item, projectData, leaderId);
+    if (!player.isMajor || !isRenewable(projectData)) {
         return;
     }
     ensureStyle();

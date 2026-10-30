@@ -45,12 +45,18 @@ let hideTimer;
 let removeTimer;
 
 function actionName(name) {
+    // ⚠️ The game's own special case (createStartActionListItem): befriending has a start-row name.
+    if (name === 'DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN') {
+        return Locale.compose('LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_START_ACTION_NAME');
+    }
     const key = GameInfo.DiplomacyActions.lookup(DiplomacyActionTypes[name])?.Name;
     return key ? Locale.compose(key) : name;
 }
 
+/** A leader's name; an independent power has no leader, so it is named by its people, as its panel does. */
 function leaderName(leaderId) {
-    const key = Players.get(leaderId)?.leaderName;
+    const player = Players.get(leaderId);
+    const key = player && !player.isMajor ? player.civilizationFullName : player?.leaderName;
     return key ? Locale.compose(key) : String(leaderId);
 }
 
@@ -65,7 +71,7 @@ function compose() {
         const byLeader = new Map();
         for (const entry of pending) {
             const actions = byLeader.get(entry.leaderId) ?? [];
-            actions.push({ key: entryKey(entry.name, entry.leaderId), label: actionName(entry.name) });
+            actions.push({ key: entryKey(entry.name, entry.leaderId), name: entry.name, label: actionName(entry.name) });
             byLeader.set(entry.leaderId, actions);
         }
         return [...byLeader].map(([leaderId, names]) => [leaderId, leaderName(leaderId), names]);
@@ -84,9 +90,15 @@ function element(cssText, text) {
     return node;
 }
 
-function portraitUrl(leaderId) {
+/** ⚠️ An independent power has no leader portrait: its row shows the first action's own icon. */
+function portraitUrl(leaderId, actions) {
     try {
-        return Icon.getLeaderPortraitIcon(Players.get(leaderId).leaderType);
+        const player = Players.get(leaderId);
+        if (player && !player.isMajor) {
+            return GameInfo.DiplomacyActions.lookup(DiplomacyActionTypes[actions[0]?.name])?.UIIconPath
+                ?? 'blp:leader_portrait_unknown';
+        }
+        return Icon.getLeaderPortraitIcon(player.leaderType);
     } catch (error) {
         warn(`could not find the portrait of player ${leaderId}: ${error}`);
         return 'blp:leader_portrait_unknown';
@@ -108,7 +120,7 @@ function leaderRow(leaderId, leader, actions) {
         'background-repeat:no-repeat',
         'background-position:center',
     ].join(';'));
-    portrait.style.backgroundImage = `url("${portraitUrl(leaderId)}")`;
+    portrait.style.backgroundImage = `url("${portraitUrl(leaderId, actions)}")`;
     row.appendChild(portrait);
 
     const card = element([

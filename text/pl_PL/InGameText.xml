@@ -14,6 +14,12 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="pl_PL">
             <Text>Już odnawiane z: {1_Leaders}.[N]Shift+klik przenosi odnawianie do tego przywódcy.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_OFF" Language="pl_PL">
+            <Text>Za mało wpływów.[N]Kliknij, aby rozpocząć to, gdy tylko będzie ich dość.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="pl_PL">
+            <Text>Czeka na wpływy: ruszy, gdy tylko będzie ich dość. Kliknij, aby anulować.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="pl_PL">
             <Text>Cykliczna dyplomacja</Text>
         </Row>

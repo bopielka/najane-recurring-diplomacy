@@ -24,6 +24,12 @@
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_BLOCKED" Language="ru_RU">
             <Text>Уже підтримується з {1_Leaders}.[N]Shift+клацання переносить це до цього лідера.</Text>
         </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_OFF" Language="ru_RU">
+            <Text>Недостатньо впливу.[N]Клацніть, щоб почати це, щойно впливу вистачить.</Text>
+        </Row>
+        <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ONCE_ON" Language="ru_RU">
+            <Text>Очікує на вплив: почнеться, щойно його вистачить. Клацніть, щоб скасувати.</Text>
+        </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOAST_TITLE" Language="ru_RU">
             <Text>Повторювана дипломатія</Text>
         </Row>

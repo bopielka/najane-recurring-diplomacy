@@ -13,6 +13,10 @@
  * with ',' in the order they were switched on ('' = none). Catalog version 1, keyed by leader
  * (object `renewals`), is no longer read: it never shipped.
  *
+ * A second object, `waiting`, same layout: the actions to START ONCE as soon as the Influence is
+ * there (the hourglass chip, user's instruction, 2026-10-30, as in Better City UI). The renewal
+ * loop starts each once and drops it; it never renews them.
+ *
  * ⚠️ HOW MANY LEADERS ONE ACTION MAY BE KEPT WITH (user's instruction, 2026-10-30): treaties
  * (`SingleInstanceProject="false"`) with every leader at once; every other action - endeavours,
  * espionage - runs ONE instance at a time across all leaders (the column defaults to true), plus
@@ -75,6 +79,44 @@ export function isRenewable(projectData) {
         return Game.Diplomacy.getBaseDiplomaticActionDuration(projectData.actionType) > 0;
     } catch (error) {
         warn(`could not tell whether ${projectData?.actionTypeName} is renewable: ${error}`);
+        return false;
+    }
+}
+
+/**
+ * Whether the hourglass may be offered: anything with a single target and no second one to pick,
+ * except what is hostile (sanctions, war) - rule 1, never propose anything hostile.
+ */
+const NEVER_WAITED_GROUPS = ['DIPLOMACY_ACTION_GROUP_SANCTION', 'DIPLOMACY_ACTION_GROUP_UNIQUE'];
+
+/** Action names whose project asks for a second target ("Target" button), read once. */
+let secondTargetActions = null;
+
+/**
+ * ⚠️ From the database, not from `targetList2`: an action the player cannot pay for comes with an
+ * EMPTY second-target list (Incite Raid, seen in game 2026-10-30), so the list cannot tell.
+ */
+function asksForSecondTarget(actionTypeName) {
+    if (secondTargetActions === null) {
+        secondTargetActions = new Set();
+        for (const row of GameInfo.DiplomaticProjects_UI_Data) {
+            // ⚠️ "None" is spelled DIPLOMACY_TARGET_NONE in the data (diplomacy-actions.xml).
+            if (row.Target2Type && row.Target2Type !== 'DIPLOMACY_TARGET_NONE') {
+                secondTargetActions.add(row.DiplomacyActionType);
+            }
+        }
+    }
+    return secondTargetActions.has(actionTypeName);
+}
+
+export function isWaitable(projectData) {
+    try {
+        if (!projectData || (projectData.targetList2?.length ?? 0) > 0 || asksForSecondTarget(projectData.actionTypeName)) {
+            return false;
+        }
+        return !NEVER_WAITED_GROUPS.some((name) => DiplomacyActionGroups[name] === projectData.actionGroup);
+    } catch (error) {
+        warn(`could not tell whether ${projectData?.actionTypeName} can wait: ${error}`);
         return false;
     }
 }
@@ -155,46 +197,51 @@ export function instanceLimit(projectData) {
 //#endregion
 
 //#region the store
-/** `{ playerId, object }` for the local player of the game being played, built on first use. */
+const RENEWALS = OBJECT_ID;
+const WAITING = 'waiting';
+
+/** `{ playerId, catalog, objects: { id: object } }` for the local player, built on first use. */
 let store = null;
 
-/** action name -> leader ids written but not yet committed. */
+/** `${objectId}|${actionName}` -> leader ids written but not yet committed. */
 const pending = new Map();
 
-function renewalsObject() {
+function storeObject(objectId) {
     const playerId = GameContext.localPlayerID;
-    if (store?.playerId === playerId) {
-        return store.object;
-    }
     try {
-        const player = Players.get(playerId);
-        if (!player) {
-            return null;
+        if (store?.playerId !== playerId) {
+            const player = Players.get(playerId);
+            if (!player) {
+                return null;
+            }
+            // ⚠️ Never disposed: one per game session, and the module is re-evaluated with the game scope.
+            store = { playerId, catalog: new Catalog({ name: CATALOG_NAME, version: CATALOG_VERSION, player }), objects: {} };
+            pending.clear();
         }
-        // ⚠️ Never disposed: one per game session, and the module is re-evaluated with the game scope.
-        const catalog = new Catalog({ name: CATALOG_NAME, version: CATALOG_VERSION, player });
-        store = { playerId, object: catalog.getObject(OBJECT_ID) };
-        pending.clear();
-        return store.object;
+        if (!store.objects[objectId]) {
+            store.objects[objectId] = store.catalog.getObject(objectId);
+        }
+        return store.objects[objectId];
     } catch (error) {
-        warn(`could not open the renewals store in the save: ${error}`);
+        warn(`could not open the ${objectId} store in the save: ${error}`);
         return null;
     }
 }
 
 window.addEventListener(CatalogItemCommittedEventName, (event) => {
     const detail = event.detail;
-    if (detail?.catalogId === CATALOG_NAME && detail.objectId === OBJECT_ID) {
-        pending.delete(detail.key);
+    if (detail?.catalogId === CATALOG_NAME) {
+        pending.delete(`${detail.objectId}|${detail.key}`);
     }
 });
 
-/** Leader ids this action is kept running with, oldest first. */
-function leadersFor(actionTypeName) {
-    if (pending.has(actionTypeName)) {
-        return pending.get(actionTypeName);
+/** Leader ids stored under this action, oldest first. */
+function listFor(objectId, actionTypeName) {
+    const key = `${objectId}|${actionTypeName}`;
+    if (pending.has(key)) {
+        return pending.get(key);
     }
-    const object = renewalsObject();
+    const object = storeObject(objectId);
     if (!object) {
         return [];
     }
@@ -202,19 +249,47 @@ function leadersFor(actionTypeName) {
         const raw = object.read(actionTypeName);
         return typeof raw === 'string' && raw.length > 0 ? raw.split(',').map(Number).filter(Number.isFinite) : [];
     } catch (error) {
-        warn(`could not read the leaders of ${actionTypeName}: ${error}`);
+        warn(`could not read the ${objectId} leaders of ${actionTypeName}: ${error}`);
         return [];
     }
+}
+
+function writeList(objectId, actionTypeName, leaders) {
+    const object = storeObject(objectId);
+    if (!object) {
+        return;
+    }
+    try {
+        object.write(actionTypeName, leaders.join(','));
+        pending.set(`${objectId}|${actionTypeName}`, leaders);
+    } catch (error) {
+        warn(`could not save ${objectId} ${actionTypeName}: ${error}`);
+    }
+}
+
+/** Every non-empty list of one object: `[[actionName, [leaderIds]], ...]`. */
+function allLists(objectId) {
+    const object = storeObject(objectId);
+    if (!object) {
+        return [];
+    }
+    const names = new Set(object.getKeys());
+    for (const key of pending.keys()) {
+        if (key.startsWith(`${objectId}|`)) {
+            names.add(key.slice(objectId.length + 1));
+        }
+    }
+    return [...names].map((name) => [name, listFor(objectId, name)]).filter(([, leaders]) => leaders.length > 0);
 }
 //#endregion
 
 export function isRenewalOn(leaderId, actionTypeName) {
-    return leadersFor(actionTypeName).includes(leaderId);
+    return listFor(RENEWALS, actionTypeName).includes(leaderId);
 }
 
 /** The leaders that switching this action on for `leaderId` would drop, oldest first. */
 export function wouldReplace(leaderId, projectData) {
-    const others = leadersFor(projectData.actionTypeName).filter((id) => id !== leaderId);
+    const others = listFor(RENEWALS, projectData.actionTypeName).filter((id) => id !== leaderId);
     const excess = others.length + 1 - instanceLimit(projectData);
     return excess > 0 ? others.slice(0, excess) : [];
 }
@@ -222,32 +297,35 @@ export function wouldReplace(leaderId, projectData) {
 /** @returns the state now in force, so a caller that could not save shows the truth. */
 export function setRenewal(leaderId, projectData, on) {
     const name = projectData.actionTypeName;
-    const object = renewalsObject();
-    if (!object) {
-        return isRenewalOn(leaderId, name);
-    }
     const dropped = on ? wouldReplace(leaderId, projectData) : [];
-    const leaders = leadersFor(name).filter((id) => id !== leaderId && !dropped.includes(id));
+    const leaders = listFor(RENEWALS, name).filter((id) => id !== leaderId && !dropped.includes(id));
     if (on) {
         leaders.push(leaderId);
     }
-    try {
-        object.write(name, leaders.join(','));
-        pending.set(name, leaders);
-    } catch (error) {
-        warn(`could not save ${name} for player ${leaderId}: ${error}`);
-    }
+    writeList(RENEWALS, name, leaders);
     return isRenewalOn(leaderId, name);
 }
 
 /** Every marked action of this game, for the renewal loop: `[[actionName, [leaderIds]], ...]`. */
 export function markedRenewals() {
-    const object = renewalsObject();
-    if (!object) {
-        return [];
+    return allLists(RENEWALS);
+}
+
+export function isWaitingOn(leaderId, actionTypeName) {
+    return listFor(WAITING, actionTypeName).includes(leaderId);
+}
+
+/** @returns the state now in force. */
+export function setWaiting(leaderId, actionTypeName, on) {
+    const leaders = listFor(WAITING, actionTypeName).filter((id) => id !== leaderId);
+    if (on) {
+        leaders.push(leaderId);
     }
-    const keys = new Set([...object.getKeys(), ...pending.keys()]);
-    return [...keys]
-        .map((name) => [name, leadersFor(name)])
-        .filter(([, leaders]) => leaders.length > 0);
+    writeList(WAITING, actionTypeName, leaders);
+    return isWaitingOn(leaderId, actionTypeName);
+}
+
+/** Every action waiting for Influence: `[[actionName, [leaderIds]], ...]`. */
+export function markedWaits() {
+    return allLists(WAITING);
 }

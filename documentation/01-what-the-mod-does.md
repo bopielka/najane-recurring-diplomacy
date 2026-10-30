@@ -29,6 +29,16 @@ icon. A plain click does nothing, and the tooltip names those leaders. **Shift+c
 this leader, dropping the leader it was switched on with longest ago, and proposes it here at once
 if the game allows. ❓ Franklin's limit of two is not yet confirmed in game.
 
+**Influence chips** (`ui/screen/influence-chips.js`, user's instruction, 2026-10-30, Better City
+UI's two chips copied 1:1). Every row with a price, on a leader's or an independent power's list,
+shows it as a chip, greyed while the action cannot be started (a click on a live chip starts it,
+like the row). While the price is above the player's Influence - or while already marked - an
+**hourglass** chip sits beside it: "start this ONCE as soon as there is enough". Stored in the save
+(object `waiting`); the renewal loop starts it at the first turn start the game allows and drops
+the mark. It never renews: that is the sync toggle's job. Sanctions and war never get it.
+Anything aimed at an independent power shows blue in the summary, like espionage, and its row in
+the summary carries the action's icon. ❓ Not yet seen in game.
+
 Rows that get no toggle: sanctions, city-state projects, war and alliance, zero-turn actions
 (Improve Trade Relations, Send Gold), actions that ask for a second target, the "renew a recently
 completed project" rows, and anything on the local player's own screen or an independent's.
