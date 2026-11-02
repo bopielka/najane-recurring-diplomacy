@@ -2,8 +2,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="de_DE">
-            <Text>Najane Mods: wiederkehrende Diplomatie</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="de_DE">
+            <Text>Najane-Mods: wiederkehrende Diplomatie</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="de_DE">
+            <Text>Automatisierungen vor Ende des Zeitalters ausschalten</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="de_DE">
+            <Text>Etwa so viele Runden vor Ende des Zeitalters werden alle Sync-Schaltflächen und Sanduhren ausgeschaltet, einmal pro Zeitalter; von Hand kannst du sie wieder einschalten. 0 Runden: Sie bleiben an.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="de_DE">
+            <Text>0 Runden</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="de_DE">
+            <Text>10 Runden</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="de_DE">
+            <Text>20 Runden</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="de_DE">
+            <Text>30 Runden</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="de_DE">
             <Text>Erneuern: AN[N]Wird diesem Anführer erneut vorgeschlagen, sobald es nicht läuft. Klicken zum Ausschalten.</Text>

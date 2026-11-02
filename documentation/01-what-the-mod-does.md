@@ -100,6 +100,12 @@ the player already made once.
   the shared Najane options section (Options → Mods), through
   `ui/options/najane-mod-options-registry.js`, copied verbatim from the sibling mods. This mod's
   `sort` slot is **50** (10 specialists · 20 city · 30 commerce · 40 journal).
+- ✅ **Switch off near the age end** (`ui/engine/age-end-setting.js`, user's instruction, 2026-11-02):
+  a dropdown of 0, 10, 20 or 30 turns, 10 by default, 0 = never. At the first turn start with that many
+  age-progress points or fewer left, every renewal and wait is dropped (`clearMarksForAgeEnd`), once per
+  age: what the player switches on by hand afterwards keeps working. The game has no "turns left" call.
+  Points are +1 per turn, +5/+5/+10 per milestone of any player and +10 per future tech or civic, so
+  outside the game's own countdown the turns are approximate and can be fewer. ❓ Not yet seen in game.
 - **Per-leader choices**: ✅ decided — the sync toggle above, on the leader's diplomacy screen.
 
 ## Open design questions
@@ -107,7 +113,7 @@ the player already made once.
 - Should an agreement the **AI** started (and the player accepted) also be renewable? Probably
   yes — the player only cares that it keeps running, not who started it.
 - ✅ **Age transition** (user's instruction, 2026-11-01): every renewal and wait is dropped; the
-  player chooses again in the new age (`clearIfNewAge`, `ui/engine/renewals.js`). ❓ Not yet seen
-  in game.
+  player chooses again in the new age (`clearIfNewAge`, `ui/engine/renewals.js`). Seen in UI.log,
+  2026-11-02.
 - Multiplayer: renewal runs only for the local player and only on their turn; no extra
   synchronisation should be needed, but it must be checked once in a hot-seat game.

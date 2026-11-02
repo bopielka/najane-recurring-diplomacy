@@ -6,7 +6,7 @@
             <Text>Recurring Diplomacy by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="it_IT">
-            <Text>Mantiene attivi gli accordi diplomatici che scegli - frontiere aperte, collaborazione scientifica, controspionaggio e altro - riproponendoli quando scadono. Basta un clic sul pulsante di sincronizzazione accanto a un'azione nella schermata diplomatica di un leader; un breve riepilogo a ogni turno mostra chi ha accettato. Influenza insufficiente? La clessidra avvia un'azione una sola volta, appena puoi pagarla. Una nuova era riparte da zero: tutto viene disattivato e scegli di nuovo. Solo interfaccia - nessuna regola di gioco viene modificata.</Text>
+            <Text>Mantiene attivi gli accordi diplomatici che scegli - frontiere aperte, collaborazione scientifica, controspionaggio e altro - riproponendoli quando scadono. Basta un clic sul pulsante di sincronizzazione accanto a un'azione nella schermata diplomatica di un leader; un breve riepilogo a ogni turno mostra chi ha accettato. Influenza insufficiente? La clessidra avvia un'azione una sola volta, appena puoi pagarla. Una nuova epoca riparte da zero: tutto viene disattivato e scegli di nuovo. Solo interfaccia - nessuna regola di gioco viene modificata.</Text>
         </Row>
     </LocalizedText>
 </Database>

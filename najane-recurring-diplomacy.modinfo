@@ -7,7 +7,7 @@
     xmlns="ModInfo">
     <Properties>
         <Name>LOC_MOD_NAJANE_RECURRING_NAME</Name>
-        <Version>1.3</Version>
+        <Version>1.4</Version>
         <Description>LOC_MOD_NAJANE_RECURRING_DESCRIPTION</Description>
         <Authors>Najane</Authors>
         <Package>Mod</Package>
@@ -52,15 +52,40 @@
                     <Item>icons/sync.png</Item>
                 </ImportFiles>
                 <UIScripts>
+                    <Item>ui/options/najane-recurring-options.js</Item>
                     <Item>ui/recurring-diplomacy.js</Item>
                 </UIScripts>
             </Actions>
         </ActionGroup>
         <!--
-            No shell group yet. When the options module lands (ui/options/), it has to be
-            registered in a scope="shell" group as well, or its rows vanish from the main
-            menu's Options screen - see documentation/02-architecture.md.
+            The options screen exists in the main menu as well as in game, so the options
+            module is registered in both scopes. Nothing else belongs in the shell.
         -->
+        <ActionGroup id="najane-recurring-shell" scope="shell" criteria="always">
+            <Properties>
+                <LoadOrder>1000</LoadOrder>
+            </Properties>
+            <Actions>
+                <UpdateText>
+                    <Item>text/en_us/InGameText.xml</Item>
+                    <Item locale="de_DE">text/de_DE/InGameText.xml</Item>
+                    <Item locale="es_ES">text/es_ES/InGameText.xml</Item>
+                    <Item locale="fr_FR">text/fr_FR/InGameText.xml</Item>
+                    <Item locale="it_IT">text/it_IT/InGameText.xml</Item>
+                    <Item locale="ja_JP">text/ja_JP/InGameText.xml</Item>
+                    <Item locale="ko_KR">text/ko_KR/InGameText.xml</Item>
+                    <Item locale="pl_PL">text/pl_PL/InGameText.xml</Item>
+                    <Item locale="pt_BR">text/pt_BR/InGameText.xml</Item>
+                    <!-- ru_RU holds UKRAINIAN text; see the note in the file. -->
+                    <Item locale="ru_RU">text/ru_RU/InGameText.xml</Item>
+                    <Item locale="zh_Hans_CN">text/zh_Hans_CN/InGameText.xml</Item>
+                    <Item locale="zh_Hant_HK">text/zh_Hant_HK/InGameText.xml</Item>
+                </UpdateText>
+                <UIScripts>
+                    <Item>ui/options/najane-recurring-options.js</Item>
+                </UIScripts>
+            </Actions>
+        </ActionGroup>
     </ActionGroups>
     <LocalizedText>
         <File>text/en_us/ModInfoText.xml</File>

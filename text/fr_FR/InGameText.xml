@@ -2,8 +2,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="fr_FR">
-            <Text>Najane Mods : diplomatie récurrente</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="fr_FR">
+            <Text>Mods de Najane: diplomatie récurrente</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="fr_FR">
+            <Text>Désactiver les automatisations avant la fin de l'âge</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="fr_FR">
+            <Text>Environ ce nombre de tours avant la fin de l'âge, tous les boutons de synchronisation et sabliers sont désactivés, une fois par âge ; vous pouvez les réactiver à la main. 0 tour : ils restent actifs.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="fr_FR">
+            <Text>0 tours</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="fr_FR">
+            <Text>10 tours</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="fr_FR">
+            <Text>20 tours</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="fr_FR">
+            <Text>30 tours</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="fr_FR">
             <Text>Renouveler : OUI[N]Proposé à nouveau à ce dirigeant dès qu'il n'est plus en cours. Cliquez pour désactiver.</Text>

@@ -2,8 +2,26 @@
 <!-- Keys: LOC_NAJANE_RECURRING_*. Every key added here goes into every other text/<locale>/ as well. -->
 <Database>
     <EnglishText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP">
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING">
             <Text>Najane Mods: recurring diplomacy</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END">
+            <Text>Switch off automations before the Age ends</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION">
+            <Text>About this many turns before the Age ends, every sync button and hourglass is switched off, once per Age; you can switch them on again by hand. 0 turns: they stay on.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0">
+            <Text>0 turns</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10">
+            <Text>10 turns</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20">
+            <Text>20 turns</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30">
+            <Text>30 turns</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON">
             <Text>Keep renewing: ON[N]Proposed again with this leader whenever it is not running. Click to turn off.</Text>

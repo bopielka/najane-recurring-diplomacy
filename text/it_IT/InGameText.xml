@@ -2,8 +2,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="it_IT">
-            <Text>Najane Mods: diplomazia ricorrente</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="it_IT">
+            <Text>Mod di Najane: diplomazia ricorrente</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="it_IT">
+            <Text>Disattiva le automazioni prima della fine dell'epoca</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="it_IT">
+            <Text>Circa questo numero di turni prima della fine dell'epoca, tutti i pulsanti di sincronizzazione e le clessidre vengono disattivati, una volta per epoca; puoi riattivarli a mano. 0 turni: restano attivi.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="it_IT">
+            <Text>0 turni</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="it_IT">
+            <Text>10 turni</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="it_IT">
+            <Text>20 turni</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="it_IT">
+            <Text>30 turni</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="it_IT">
             <Text>Rinnova: SÌ[N]Riproposto a questo leader ogni volta che non è attivo. Clicca per disattivare.</Text>

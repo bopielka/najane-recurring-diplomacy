@@ -14,11 +14,11 @@ Plain ES modules, **no build step, no bundler, no TypeScript, no tests** — the
 the file it is drawn from: `../better-commerce-screen-ui/ui/engine/diplomacy.js`, the working
 implementation of proposing a diplomatic action from script.
 
-**Status: 1.3** (2026-11-01). The sync toggle in the diplomacy action list records choices
+**Status: 1.4** (2026-11-02). The sync toggle in the diplomacy action list records choices
 (`ui/screen/sync-toggle.js`, `ui/engine/renewals.js`); `ui/engine/renewal-loop.js` proposes them
 again at `LocalPlayerTurnBegin`. `ui/screen/influence-chips.js` draws the price and the hourglass
 (start once, as soon as it can be paid). All marks are cleared when the age changes
-(`clearIfNewAge`). `ui/screen/renewal-toast.js` reports them. Not yet: the Influence reserve, options. The icon PNG is generated: `python tools/make-icons.py` from `assets/sync.svg`.
+(`clearIfNewAge`). `ui/screen/renewal-toast.js` reports them. Options: `ui/options/najane-recurring-options.js` (switch every mark off 0/10/20/30 turns before the age ends, 10 by default). Not yet: the Influence reserve. The icon PNG is generated: `python tools/make-icons.py` from `assets/sync.svg`.
 
 ## Commands
 
@@ -32,7 +32,9 @@ The game never reads this repository — it reads a copy in its own mod folder.
 ./deploy.sh --dry
 ```
 
-After deploying, **return to the main menu or restart** — scripts are loaded once.
+After deploying, **return to the main menu or restart** — scripts are loaded once. ⚠️ A changed
+`.modinfo` needs a FULL RESTART of the game: mods are discovered once at startup (Modding.log,
+"Discovering Mods"), so a new `UIScripts` item or action group stays unknown until then.
 
 Logs: `%LOCALAPPDATA%\Firaxis Games\Sid Meier's Civilization VII\Logs\` — `UI.log` (this mod's
 output, prefixed `najane-recurring-diplomacy:`), `Modding.log`, `Database.log`.

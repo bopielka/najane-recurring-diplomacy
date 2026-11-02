@@ -24,7 +24,7 @@ Each listed in the `.modinfo`; everything else arrives by `import`, which also f
 | File | Scope | Status |
 |---|---|---|
 | `ui/recurring-diplomacy.js` | game | ✅ logs `loaded, build <stamp>`, imports the toggle |
-| `ui/options/najane-recurring-options.js` | game **and** shell | not written |
+| `ui/options/najane-recurring-options.js` | game **and** shell | ✅ the rows; the value is in `ui/engine/age-end-setting.js` |
 
 ## Modules so far
 

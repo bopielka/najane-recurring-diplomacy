@@ -2,8 +2,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="ko_KR">
-            <Text>Najane Mods: 반복 외교</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="ko_KR">
+            <Text>Najane 모드: 반복 외교</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="ko_KR">
+            <Text>시대 종료 전에 자동화 끄기</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="ko_KR">
+            <Text>시대 종료 약 이 턴 수 전에 모든 동기화 버튼과 모래시계가 꺼집니다(시대당 한 번). 직접 다시 켤 수 있습니다. 0턴: 계속 켜져 있습니다.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="ko_KR">
+            <Text>0턴</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="ko_KR">
+            <Text>10턴</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="ko_KR">
+            <Text>20턴</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="ko_KR">
+            <Text>30턴</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="ko_KR">
             <Text>갱신: 켜짐[N]진행 중이 아닐 때마다 이 지도자에게 다시 제안합니다. 클릭하여 끄기.</Text>

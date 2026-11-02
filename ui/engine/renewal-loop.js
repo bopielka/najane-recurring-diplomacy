@@ -22,7 +22,8 @@
  * Only this module subscribes to these two events, so it calls `engine.on` directly; move to a
  * dispatcher (as in Better Commerce's engine/events.js) when a second module needs them.
  */
-import { markedRenewals, markedWaits, setWaiting } from './renewals.js';
+import { automationStopTurns } from './age-end-setting.js';
+import { clearMarksForAgeEnd, markedRenewals, markedWaits, setWaiting } from './renewals.js';
 import { warn } from '../support/diagnostics.js';
 
 /**
@@ -139,9 +140,44 @@ function onResponse(data) {
     }));
 }
 
+/**
+ * ⚠️ Points left, which is what the game itself prints as turns left once its countdown runs
+ * (panel-sub-system-dock.js). Earlier it is an upper bound: +1 point per turn, plus +5/+5/+10 for any
+ * player's milestones and +10 per future tech or civic (age-*\/data/victories.xml), so 30 points can
+ * be fewer than 30 turns. No call gives the turns themselves.
+ * Null when the age never ends: an extended game, no maximum, or a final age without score victory.
+ */
+function turnsUntilAgeEnd() {
+    const manager = Game.AgeProgressManager;
+    const max = manager.getMaxAgeProgressionPoints();
+    if (manager.isExtendedGame || max <= 0 || (manager.isFinalAge && !Game.VictoryManager.isScoreVictoryEnabled())) {
+        return null;
+    }
+    return max - manager.getCurrentAgeProgressionPoints();
+}
+
+function ageEndReached() {
+    const stopTurns = automationStopTurns();
+    if (stopTurns <= 0) {
+        return false;
+    }
+    try {
+        const turns = turnsUntilAgeEnd();
+        // ⚠️ TEMPORARY PROBE: that the count lands where the game's own tooltip says.
+        warn(`renewal: ${turns} turn(s) until the age ends, marks go at ${stopTurns}`);
+        return turns !== null && turns <= stopTurns;
+    } catch (error) {
+        warn(`could not read how close the age is to ending: ${error}`);
+        return false;
+    }
+}
+
 /** ⚠️ Waits first: a pair both waiting and renewed is then proposed once, and its wait dropped. */
 export function runRenewals() {
     spentThisPass = 0;
+    if (ageEndReached()) {
+        clearMarksForAgeEnd();
+    }
     for (const [lists, once] of [[markedWaits(), true], [markedRenewals(), false]]) {
         for (const [name, leaders] of lists) {
             for (const leaderId of leaders) {

@@ -2,8 +2,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="zh_Hans_CN">
-            <Text>Najane Mods：外交自动续约</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="zh_Hans_CN">
+            <Text>Najane 模组: 外交自动续约</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="zh_Hans_CN">
+            <Text>时代结束前关闭自动化</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="zh_Hans_CN">
+            <Text>在时代结束前约这么多回合，关闭所有同步按钮和沙漏（每个时代一次）；你可以再次手动开启。0回合：保持开启。</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="zh_Hans_CN">
+            <Text>0回合</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="zh_Hans_CN">
+            <Text>10回合</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="zh_Hans_CN">
+            <Text>20回合</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="zh_Hans_CN">
+            <Text>30回合</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="zh_Hans_CN">
             <Text>续约：开[N]未生效时会再次向该领袖提议。点击关闭。</Text>

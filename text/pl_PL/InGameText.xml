@@ -2,8 +2,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="pl_PL">
-            <Text>Najane Mods: cykliczna dyplomacja</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="pl_PL">
+            <Text>Mody Najane: cykliczna dyplomacja</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="pl_PL">
+            <Text>Wyłącz automatyzacje przed końcem epoki</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="pl_PL">
+            <Text>Mniej więcej tyle tur przed końcem epoki wszystkie przyciski cykliczności i klepsydry zostaną wyłączone, raz na epokę; możesz włączyć je ponownie ręcznie. 0 tur: pozostają włączone.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="pl_PL">
+            <Text>0 tur</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="pl_PL">
+            <Text>10 tur</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="pl_PL">
+            <Text>20 tur</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="pl_PL">
+            <Text>30 tur</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="pl_PL">
             <Text>Odnawiaj: WŁ.[N]Proponowane ponownie temu przywódcy zawsze, gdy nie trwa. Kliknij, aby wyłączyć.</Text>

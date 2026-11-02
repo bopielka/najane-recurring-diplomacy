@@ -12,8 +12,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="ru_RU">
-            <Text>Najane Mods: повторювана дипломатія</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="ru_RU">
+            <Text>Моди Najane: повторювана дипломатія</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="ru_RU">
+            <Text>Вимикати автоматизацію перед кінцем епохи</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="ru_RU">
+            <Text>Приблизно за стільки ходів до кінця епохи всі кнопки синхронізації та піскові годинники вимикаються, один раз за епоху; ви можете ввімкнути їх знову вручну. 0 ходів: вони залишаються ввімкненими.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="ru_RU">
+            <Text>0 ходів</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="ru_RU">
+            <Text>10 ходів</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="ru_RU">
+            <Text>20 ходів</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="ru_RU">
+            <Text>30 ходів</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="ru_RU">
             <Text>Поновлювати: УВІМК.[N]Пропонується цьому лідерові знову щоразу, коли не діє. Клацніть, щоб вимкнути.</Text>

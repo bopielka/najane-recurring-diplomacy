@@ -2,8 +2,26 @@
 <!-- Non-English text: <LocalizedText> with Language, never <EnglishText>. -->
 <Database>
     <LocalizedText>
-        <Row Tag="LOC_NAJANE_RECURRING_OPTIONS_GROUP" Language="pt_BR">
-            <Text>Najane Mods: diplomacia recorrente</Text>
+        <Row Tag="LOC_OPTIONS_GROUP_NAJANE_MODS_RECURRING" Language="pt_BR">
+            <Text>Mods de Najane: diplomacia recorrente</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END" Language="pt_BR">
+            <Text>Desativar automações antes do fim da Era</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_DESCRIPTION" Language="pt_BR">
+            <Text>Cerca desse número de turnos antes do fim da Era, todos os botões de sincronização e ampulhetas são desativados, uma vez por Era; você pode reativá-los manualmente. 0 turnos: continuam ativos.</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_0" Language="pt_BR">
+            <Text>0 turnos</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_10" Language="pt_BR">
+            <Text>10 turnos</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_20" Language="pt_BR">
+            <Text>20 turnos</Text>
+        </Row>
+        <Row Tag="LOC_OPTIONS_NAJANE_RECURRING_AGE_END_TURNS_30" Language="pt_BR">
+            <Text>30 turnos</Text>
         </Row>
         <Row Tag="LOC_NAJANE_RECURRING_TOGGLE_ON" Language="pt_BR">
             <Text>Renovar: LIGADO[N]Proposto novamente a este líder sempre que não estiver ativo. Clique para desligar.</Text>

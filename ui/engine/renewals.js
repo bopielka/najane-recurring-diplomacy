@@ -222,6 +222,7 @@ const RENEWALS = OBJECT_ID;
 const WAITING = 'waiting';
 const META = 'meta';
 const AGE_KEY = 'age';
+const AGE_END_KEY = 'ageEndCleared';
 
 /** `{ playerId, catalog, objects: { id: object } }` for the local player, built on first use. */
 let store = null;
@@ -262,8 +263,8 @@ window.addEventListener(CatalogItemCommittedEventName, (event) => {
 /**
  * ⚠️ NOTHING CARRIES OVER TO A NEW AGE (user's instruction, 2026-11-01): renewals and waits are both
  * dropped. The save remembers the age its marks belong to (object `meta`), and the first read in a
- * different age clears them. The catalog itself is assumed to cross the age boundary: the game's
- * utility-serialize.js only speaks of preventing that "in the future". ❓ Not yet seen in game.
+ * different age clears them. The catalog does cross the age boundary (seen in UI.log, 2026-11-02),
+ * though the game's utility-serialize.js speaks of preventing that "in the future".
  * A save without the stamp (older build) just gets one: its marks stay until the next age.
  */
 function clearIfNewAge() {
@@ -278,16 +279,40 @@ function clearIfNewAge() {
             return;
         }
         if (markedIn) {
-            for (const objectId of [RENEWALS, WAITING]) {
-                for (const [name] of allLists(objectId)) {
-                    writeList(objectId, name, []);
-                }
-            }
+            clearAllMarks();
             warn(`new age ${age} (marks were from ${markedIn}): renewals and waits cleared`);
         }
         meta.write(AGE_KEY, age);
     } catch (error) {
         warn(`could not check the age of the renewals: ${error}`);
+    }
+}
+
+function clearAllMarks() {
+    for (const objectId of [RENEWALS, WAITING]) {
+        for (const [name] of allLists(objectId)) {
+            writeList(objectId, name, []);
+        }
+    }
+}
+
+/**
+ * Switches every mark off as the age nears its end (user's instruction, 2026-11-02: a button left on
+ * that does nothing misleads the player). ⚠️ ONCE PER AGE, stamped in the save: what the player
+ * switches on by hand after this keeps working, and loading an older save behaves as it did.
+ */
+export function clearMarksForAgeEnd() {
+    try {
+        const age = GameInfo.Ages.lookup(Game.age)?.AgeType;
+        const meta = storeObject(META);
+        if (!age || !meta || meta.read(AGE_END_KEY) === age) {
+            return;
+        }
+        clearAllMarks();
+        meta.write(AGE_END_KEY, age);
+        warn(`the age is about to end: renewals and waits cleared`);
+    } catch (error) {
+        warn(`could not clear the marks before the age end: ${error}`);
     }
 }
 
