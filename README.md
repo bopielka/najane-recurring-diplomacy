@@ -7,11 +7,12 @@ turn — through the same action you would use on the Diplomacy screen, at the s
 
 **No rules change.** The other leader can still refuse, and nothing is proposed that you did not
 switch on. Your choices are kept in the save itself, so loading an older save brings back the
-choices that save had.
+choices that save had. A new age starts clean: everything is switched off and you choose again.
 
-**Status: 1.2** — the sync toggle beside each treaty, endeavour, espionage action and sanction, the game's
-instance limits (Shift+click moves a full one), renewal at the start of your turn and a summary
-toast coloured by each leader's answer. Not yet: the Influence reserve and options. Details in
+**Status: 1.3** — the sync toggle beside each treaty, endeavour, espionage action and sanction, the game's
+instance limits (Shift+click moves a full one), renewal at the start of your turn, the hourglass
+(start an action once, as soon as you can pay for it), marks cleared when the age changes and a
+summary toast coloured by each leader's answer. Not yet: the Influence reserve and options. Details in
 [`documentation/01-what-the-mod-does.md`](documentation/01-what-the-mod-does.md).
 
 ## Deploy

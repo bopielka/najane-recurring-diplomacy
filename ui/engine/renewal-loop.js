@@ -10,6 +10,10 @@
  * ⚠️ `sendRequest` QUEUES: `canStart` keeps answering yes for a frame or two. `proposedThisTurn`
  * stops a second proposal in that window; cleared on `LocalPlayerTurnBegin` and `GameStarted`.
  *
+ * ⚠️ The balance has the same gap: within one pass `canStart` still sees the Influence as unspent, and
+ * the engine silently drops whatever the balance cannot cover (measured: six sent, two answered, the
+ * balance fell by those two prices). `spentThisPass` keeps the count.
+ *
  * ⚠️ TEMPORARY PROBE: every proposal and every refusal is written with `warn()`, so the first
  * in-game runs show in UI.log what the engine answered. Move refusals to `log()` once verified.
  *
@@ -30,6 +34,9 @@ export const RenewalAnsweredEventName = 'najane-recurring-renewal-answered';
 
 /** `${actionName}:${leaderId}` proposed since the turn began. */
 const proposedThisTurn = new Set();
+
+/** Influence committed by the requests of the running pass; the game's balance does not show it yet. */
+let spentThisPass = 0;
 
 /** `${actionType}:${leaderId}` → action name, for proposals whose answer has not come yet. */
 const awaitingAnswer = new Map();
@@ -73,6 +80,12 @@ function renew(name, leaderId, once) {
         warn(`renewal: ${name} with player ${leaderId} - not offered by the game now`);
         return;
     }
+    const cost = project.targetList1?.find((entry) => entry.targetID === leaderId)?.costYieldD ?? 0;
+    const balance = Players.get(GameContext.localPlayerID)?.DiplomacyTreasury?.diplomacyBalance ?? Infinity;
+    if (cost > balance - spentThisPass) {
+        warn(`renewal: ${name} with player ${leaderId} - not now: costs ${cost}, ${balance - spentThisPass} of ${balance} left this pass`);
+        return;
+    }
     const args = {
         Amount: 1,
         Player1: GameContext.localPlayerID,
@@ -88,7 +101,8 @@ function renew(name, leaderId, once) {
     }
     Game.PlayerOperations.sendRequest(GameContext.localPlayerID, project.operationType, args);
     proposedThisTurn.add(key);
-    warn(`renewal: proposed ${name} to player ${leaderId}`);
+    spentThisPass += Math.max(cost, 0);
+    warn(`renewal: proposed ${name} to player ${leaderId} for ${cost}`);
     if (once) {
         setWaiting(leaderId, name, false);
     }
@@ -127,6 +141,7 @@ function onResponse(data) {
 
 /** ⚠️ Waits first: a pair both waiting and renewed is then proposed once, and its wait dropped. */
 export function runRenewals() {
+    spentThisPass = 0;
     for (const [lists, once] of [[markedWaits(), true], [markedRenewals(), false]]) {
         for (const [name, leaders] of lists) {
             for (const leaderId of leaders) {

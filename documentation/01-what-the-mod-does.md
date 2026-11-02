@@ -16,7 +16,7 @@ is still clickable, so it stays at full brightness, on or off.
 
 The choice is stored **in the save**, per leader (`Catalog` `NajaneRecurringDiplomacy`, see
 `ui/engine/renewals.js`), so it is deterministic: loading an older save brings back exactly the
-toggles that save had. ⚠️ It was briefly kept in `localStorage` keyed by the game seed; that leaked
+toggles that save had. A new age clears them (see "Age transition" below). ⚠️ It was briefly kept in `localStorage` keyed by the game seed; that leaked
 choices into older saves of the same game, because the seed survives a reload.
 
 **How many leaders at once** (`instanceLimit` in `ui/engine/renewals.js`). Treaties
@@ -41,7 +41,8 @@ Anything aimed at an independent power shows blue in the summary, like espionage
 the summary carries the action's icon. The sync toggle wears the hourglass chip's box and sits first in the
 chips' row, all three at one gap (1.2). What holds a row back is classified once (`obstacleOf`): 'running' is
 asked of `getPlayerEvents`, never read from `projectStatus` (a running befriending reads -3, like an
-unaffordable one); 'influence' = short of Influence with exactly ONE failure reason; anything else
+unaffordable one); 'influence' = short of Influence with every failure reason being the game's own
+Influence message (`isInfluenceReason`; the game lists only the first obstacle); anything else
 is 'other', which hides the hourglass and locks an OFF sync toggle (Shift+click included). ❓ Not yet seen in game.
 
 Rows that get no toggle: city-state projects, war and alliance, zero-turn actions
@@ -69,7 +70,9 @@ the player already made once.
 2. ✅ (`ui/engine/renewal-loop.js`, unverified in game) **At the start of the player's turn** (`LocalPlayerTurnBegin`), for every chosen
    (leader, agreement) pair that is not currently active and was not already proposed this turn,
    the mod asks the engine whether it may propose it (`canStart`) and, if so, proposes it
-   (`sendRequest`). Details and traps: [03](03-diplomacy-api.md).
+   (`sendRequest`). Influence committed earlier in the same pass is counted, so what the balance
+   cannot cover is neither sent nor reported, and a wait keeps its mark (hourglass marks go first,
+   then renewals, in list order). Details and traps: [03](03-diplomacy-api.md).
 3. **Influence reserve.** A renewal is skipped if it would leave the player below a reserve they
    set. Renewals are ordered by the player's priority, so a short budget goes to what matters most.
 4. ✅ (`ui/screen/renewal-toast.js`, a box at the top of the screen like Better Commerce's treasure-convoy toast) **Reporting.** After a turn in which anything was proposed, one short summary tells the
@@ -103,7 +106,8 @@ the player already made once.
 
 - Should an agreement the **AI** started (and the player accepted) also be renewable? Probably
   yes — the player only cares that it keeps running, not who started it.
-- What happens at an **age transition**, when agreements end and the leader list may change?
-  Choices keyed by leader id must be validated after `GameStarted`.
+- ✅ **Age transition** (user's instruction, 2026-11-01): every renewal and wait is dropped; the
+  player chooses again in the new age (`clearIfNewAge`, `ui/engine/renewals.js`). ❓ Not yet seen
+  in game.
 - Multiplayer: renewal runs only for the local player and only on their turn; no extra
   synchronisation should be needed, but it must be checked once in a hot-seat game.

@@ -14,9 +14,11 @@ Plain ES modules, **no build step, no bundler, no TypeScript, no tests** — the
 the file it is drawn from: `../better-commerce-screen-ui/ui/engine/diplomacy.js`, the working
 implementation of proposing a diplomatic action from script.
 
-**Status: 1.0** (2026-10-30). The sync toggle in the diplomacy action list records choices
+**Status: 1.3** (2026-11-01). The sync toggle in the diplomacy action list records choices
 (`ui/screen/sync-toggle.js`, `ui/engine/renewals.js`); `ui/engine/renewal-loop.js` proposes them
-again at `LocalPlayerTurnBegin`. `ui/screen/renewal-toast.js` reports them. Not yet: the Influence reserve, options. The icon PNG is generated: `python tools/make-icons.py` from `assets/sync.svg`.
+again at `LocalPlayerTurnBegin`. `ui/screen/influence-chips.js` draws the price and the hourglass
+(start once, as soon as it can be paid). All marks are cleared when the age changes
+(`clearIfNewAge`). `ui/screen/renewal-toast.js` reports them. Not yet: the Influence reserve, options. The icon PNG is generated: `python tools/make-icons.py` from `assets/sync.svg`.
 
 ## Commands
 

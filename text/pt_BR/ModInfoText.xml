@@ -6,7 +6,7 @@
             <Text>Recurring Diplomacy by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="pt_BR">
-            <Text>Mantém ativos os acordos diplomáticos que você escolher - fronteiras abertas, colaboração em pesquisa, contraespionagem e mais - propondo-os novamente quando expiram. Um clique no botão de sincronização ao lado de uma ação na tela de diplomacia de um líder; um breve resumo a cada turno mostra quem aceitou. Apenas interface - nenhuma regra do jogo é alterada.</Text>
+            <Text>Mantém ativos os acordos diplomáticos que você escolher - fronteiras abertas, colaboração em pesquisa, contraespionagem e mais - propondo-os novamente quando expiram. Um clique no botão de sincronização ao lado de uma ação na tela de diplomacia de um líder; um breve resumo a cada turno mostra quem aceitou. Falta influência? A ampulheta inicia uma ação uma única vez, assim que você puder pagá-la. Uma nova era começa do zero: tudo é desativado e você escolhe novamente. Apenas interface - nenhuma regra do jogo é alterada.</Text>
         </Row>
     </LocalizedText>
 </Database>

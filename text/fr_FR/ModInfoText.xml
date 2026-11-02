@@ -6,7 +6,7 @@
             <Text>Recurring Diplomacy by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="fr_FR">
-            <Text>Maintient les accords diplomatiques de votre choix - frontières ouvertes, collaboration scientifique, contre-espionnage et plus - en les proposant à nouveau quand ils expirent. Un clic sur le bouton de synchronisation à côté d'une action, dans l'écran de diplomatie d'un dirigeant ; un court résumé à chaque tour indique qui a accepté. Interface uniquement - aucune règle du jeu n'est modifiée.</Text>
+            <Text>Maintient les accords diplomatiques de votre choix - frontières ouvertes, collaboration scientifique, contre-espionnage et plus - en les proposant à nouveau quand ils expirent. Un clic sur le bouton de synchronisation à côté d'une action, dans l'écran de diplomatie d'un dirigeant ; un court résumé à chaque tour indique qui a accepté. Pas assez d'influence ? Le sablier lance une action une seule fois, dès que vous pouvez la payer. Une nouvelle ère repart de zéro : tout est désactivé et vous choisissez à nouveau. Interface uniquement - aucune règle du jeu n'est modifiée.</Text>
         </Row>
     </LocalizedText>
 </Database>

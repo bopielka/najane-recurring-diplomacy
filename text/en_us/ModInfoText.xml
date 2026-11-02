@@ -5,7 +5,7 @@
             <Text>Recurring Diplomacy by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION">
-            <Text>Keeps the diplomatic agreements you choose - Open Borders, Research Collaboration, Counterspy and more - running by proposing them again when they expire. One click on the sync button beside an action on a leader's Diplomacy screen; a short summary each turn shows who agreed. UI only - no game rules are changed.</Text>
+            <Text>Keeps the diplomatic agreements you choose - Open Borders, Research Collaboration, Counterspy and more - running by proposing them again when they expire. One click on the sync button beside an action on a leader's Diplomacy screen; a short summary each turn shows who agreed. Short of Influence? The hourglass starts an action once, as soon as you can pay for it. A new age starts clean: everything is switched off and you choose again. UI only - no game rules are changed.</Text>
         </Row>
     </EnglishText>
 </Database>

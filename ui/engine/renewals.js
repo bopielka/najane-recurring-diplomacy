@@ -220,6 +220,8 @@ export function instanceLimit(projectData) {
 //#region the store
 const RENEWALS = OBJECT_ID;
 const WAITING = 'waiting';
+const META = 'meta';
+const AGE_KEY = 'age';
 
 /** `{ playerId, catalog, objects: { id: object } }` for the local player, built on first use. */
 let store = null;
@@ -238,6 +240,7 @@ function storeObject(objectId) {
             // ⚠️ Never disposed: one per game session, and the module is re-evaluated with the game scope.
             store = { playerId, catalog: new Catalog({ name: CATALOG_NAME, version: CATALOG_VERSION, player }), objects: {} };
             pending.clear();
+            clearIfNewAge();
         }
         if (!store.objects[objectId]) {
             store.objects[objectId] = store.catalog.getObject(objectId);
@@ -255,6 +258,38 @@ window.addEventListener(CatalogItemCommittedEventName, (event) => {
         pending.delete(`${detail.objectId}|${detail.key}`);
     }
 });
+
+/**
+ * ⚠️ NOTHING CARRIES OVER TO A NEW AGE (user's instruction, 2026-11-01): renewals and waits are both
+ * dropped. The save remembers the age its marks belong to (object `meta`), and the first read in a
+ * different age clears them. The catalog itself is assumed to cross the age boundary: the game's
+ * utility-serialize.js only speaks of preventing that "in the future". ❓ Not yet seen in game.
+ * A save without the stamp (older build) just gets one: its marks stay until the next age.
+ */
+function clearIfNewAge() {
+    try {
+        const age = GameInfo.Ages.lookup(Game.age)?.AgeType;
+        const meta = storeObject(META);
+        if (!age || !meta) {
+            return;
+        }
+        const markedIn = meta.read(AGE_KEY);
+        if (markedIn === age) {
+            return;
+        }
+        if (markedIn) {
+            for (const objectId of [RENEWALS, WAITING]) {
+                for (const [name] of allLists(objectId)) {
+                    writeList(objectId, name, []);
+                }
+            }
+            warn(`new age ${age} (marks were from ${markedIn}): renewals and waits cleared`);
+        }
+        meta.write(AGE_KEY, age);
+    } catch (error) {
+        warn(`could not check the age of the renewals: ${error}`);
+    }
+}
 
 /** Leader ids stored under this action, oldest first. */
 function listFor(objectId, actionTypeName) {

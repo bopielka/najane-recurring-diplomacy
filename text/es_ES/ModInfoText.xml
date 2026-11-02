@@ -6,7 +6,7 @@
             <Text>Recurring Diplomacy by Najane</Text>
         </Row>
         <Row Tag="LOC_MOD_NAJANE_RECURRING_DESCRIPTION" Language="es_ES">
-            <Text>Mantiene activos los acuerdos diplomáticos que elijas - fronteras abiertas, colaboración en investigación, contraespionaje y más - volviendo a proponerlos cuando expiran. Un clic en el botón de sincronización junto a una acción en la pantalla de diplomacia de un líder; un breve resumen en cada turno muestra quién aceptó. Solo interfaz - no se cambia ninguna regla del juego.</Text>
+            <Text>Mantiene activos los acuerdos diplomáticos que elijas - fronteras abiertas, colaboración en investigación, contraespionaje y más - volviendo a proponerlos cuando expiran. Un clic en el botón de sincronización junto a una acción en la pantalla de diplomacia de un líder; un breve resumen en cada turno muestra quién aceptó. ¿Te falta influencia? El reloj de arena inicia una acción una sola vez, en cuanto puedas pagarla. Una nueva era empieza de cero: todo se desactiva y vuelves a elegir. Solo interfaz - no se cambia ninguna regla del juego.</Text>
         </Row>
     </LocalizedText>
 </Database>

@@ -64,6 +64,10 @@ Players.get(GameContext.localPlayerID)?.DiplomacyTreasury?.diplomacyBalance ?? 0
   it describes a state the request has not reached yet. Keep a `proposedThisTurn` set, add to it
   right after `sendRequest`, clear it on `LocalPlayerTurnBegin` and `GameStarted`. Without it the
   renewal loop would propose the same thing twice in one turn.
+- ⚠️ **The balance lags the same way.** Within one pass `canStart` still counts Influence already
+  committed by queued requests, and the engine silently drops what the balance cannot cover
+  (measured: six sent at about 148 Influence, only the 75 and the 60 were answered, 13 left). Add up
+  the prices of what was sent (`spentThisPass`, `ui/engine/renewal-loop.js`).
 - ⚠️ **`FailureReasons` are COMPOSED, TRANSLATED SENTENCES**, not localisation keys — measured as
   a full Polish sentence in `UI.log`. Never match on them. Decide "why refused" from data you can
   read yourself (price vs balance, "already proposed this turn").
